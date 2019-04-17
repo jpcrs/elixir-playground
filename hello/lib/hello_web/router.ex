@@ -2,7 +2,7 @@ defmodule HelloWeb.Router do
   use HelloWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "text"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -17,9 +17,13 @@ defmodule HelloWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/admin", PageController, :admin_index
+    get "/not_found", PageController, :not_found
+    get "/test", PageController, :test
 
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
+    get "/show_id/:id", HelloController, :show_id
 
     resources "/users", UserController do
       resources "/posts", PostController
